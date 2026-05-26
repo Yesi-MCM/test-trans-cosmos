@@ -4,7 +4,7 @@ import { AuthProvider } from "@/context/AuthContext";
 import { RealtimeProvider } from "@/context/RealtimeContext";
 
 export const metadata: Metadata = {
-  title: "TaskSphere | Premium Task Management",
+  title: "TaskGrid | Premium Task Management",
   description: "Experience the state-of-the-art task collaborative workspace with real-time SSE syncing, chunked uploads, and automated queues.",
 };
 

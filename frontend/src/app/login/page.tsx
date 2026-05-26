@@ -37,7 +37,7 @@ export default function LoginPage() {
     <div className={styles.container}>
       <div className={styles.loginCard}>
         <div className={styles.header}>
-          <h1 className={styles.logo}>TaskSphere</h1>
+          <h1 className={styles.logo}>TaskGrid</h1>
           <p className={styles.subtitle}>Enter your credentials to access your workspace</p>
         </div>
 

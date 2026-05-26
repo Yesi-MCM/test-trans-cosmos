@@ -91,7 +91,7 @@ export default function Dashboard() {
   const fetchTasks = useCallback(async () => {
     try {
       setLoading(true);
-      
+
       // Build query string
       const params = new URLSearchParams();
       if (search) params.append('search', search);
@@ -130,7 +130,7 @@ export default function Dashboard() {
 
   useEffect(() => {
     fetchUsers();
-    
+
     // Check local storage for theme preference
     if (typeof window !== 'undefined') {
       const savedTheme = localStorage.getItem('theme') as 'light' | 'dark' | null;
@@ -255,7 +255,7 @@ export default function Dashboard() {
       });
 
       addToast(`Bulk update queued for ${selectedTaskIds.length} tasks!`, 'info');
-      
+
       // Optimistically update locally
       setTasks((prev) =>
         prev.map((t) =>
@@ -302,7 +302,7 @@ export default function Dashboard() {
       {/* Top Header */}
       <header className={styles.header}>
         <div className={styles.logoSection}>
-          <h1 className={styles.logoText}>TaskSphere</h1>
+          <h1 className={styles.logoText}>TaskGrid</h1>
           <span style={{ fontSize: '11px', color: 'var(--text-muted)', background: 'var(--bg-tertiary)', padding: '2px 8px', borderRadius: '10px', fontWeight: 'bold' }}>COLLAB</span>
         </div>
 
@@ -577,9 +577,8 @@ export default function Dashboard() {
         {toasts.map((t) => (
           <div
             key={t.id}
-            className={`${styles.toast} ${
-              t.type === 'success' ? styles.toastSuccess : t.type === 'error' ? styles.toastError : ''
-            }`}
+            className={`${styles.toast} ${t.type === 'success' ? styles.toastSuccess : t.type === 'error' ? styles.toastError : ''
+              }`}
           >
             <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', flex: 1 }}>
               <span>{t.message}</span>

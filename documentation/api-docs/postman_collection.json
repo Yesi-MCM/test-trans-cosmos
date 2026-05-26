@@ -1,0 +1,594 @@
+{
+  "info": {
+    "_postman_id": "060d4b8e-324e-4f1b-85fa-a9f46b1a20d2",
+    "name": "TaskGrid API Collection",
+    "description": "API requests collection for the TaskGrid platform. Auth uses JWT Bearer tokens. The login request automatically updates the collection token variable on success.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "Login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const responseJson = pm.response.json();",
+                  "if (responseJson && responseJson.access_token) {",
+                  "    pm.collectionVariables.set(\"token\", responseJson.access_token);",
+                  "    console.log(\"Saved access_token to collection variable 'token'\");",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"admin@taskmanager.com\",\n    \"password\": \"password\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/login",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Logout",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/auth/logout",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "auth",
+                "logout"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Profile (Me)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/auth/me",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "auth",
+                "me"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Task Management",
+      "item": [
+        {
+          "name": "List Tasks (Filtered & Sorted)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/tasks?status=in_progress&priority=high&sort_by=created_at&sort_order=desc",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "tasks"
+              ],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "in_progress"
+                },
+                {
+                  "key": "priority",
+                  "value": "high"
+                },
+                {
+                  "key": "sort_by",
+                  "value": "created_at"
+                },
+                {
+                  "key": "sort_order",
+                  "value": "desc"
+                },
+                {
+                  "key": "search",
+                  "value": "JWT",
+                  "disabled": true
+                },
+                {
+                  "key": "assigned_user_id",
+                  "value": "2",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Task",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"title\": \"Implement CSRF Protection\",\n    \"description\": \"Research and implement robust double-submit cookie patterns for stateful forms.\",\n    \"status\": \"todo\",\n    \"priority\": \"medium\",\n    \"assigned_user_id\": 2,\n    \"due_date\": \"2026-06-05\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/tasks",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "tasks"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Task Details",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/tasks/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "tasks",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Task",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"status\": \"completed\",\n    \"priority\": \"high\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/tasks/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "tasks",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Task",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/tasks/15",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "tasks",
+                "15"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Bulk Status Update",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"task_ids\": [3, 4, 13],\n    \"status\": \"completed\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/tasks/bulk-status",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "tasks",
+                "bulk-status"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Comments",
+      "item": [
+        {
+          "name": "Add Comment",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"comment\": \"I have reviewed the file chunks logic and it is fully aligned with specifications.\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/tasks/3/comments",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "tasks",
+                "3",
+                "comments"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Attachments",
+      "item": [
+        {
+          "name": "Upload Standard Attachment",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": []
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/tasks/5/attachments",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "tasks",
+                "5",
+                "attachments"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Upload Chunk",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "task_id",
+                  "value": "6",
+                  "type": "text"
+                },
+                {
+                  "key": "upload_id",
+                  "value": "test-session-1234",
+                  "type": "text"
+                },
+                {
+                  "key": "chunk_index",
+                  "value": "0",
+                  "type": "text"
+                },
+                {
+                  "key": "total_chunks",
+                  "value": "1",
+                  "type": "text"
+                },
+                {
+                  "key": "file_name",
+                  "value": "large_database_backup.sql",
+                  "type": "text"
+                },
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": []
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/attachments/chunk",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "attachments",
+                "chunk"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Download File / Thumbnail",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/attachments/1/download?thumbnail=1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "attachments",
+                "1",
+                "download"
+              ],
+              "query": [
+                {
+                  "key": "thumbnail",
+                  "value": "1",
+                  "description": "Optional: set to 1 to download GD generated image thumbnail"
+                },
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Attachment",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/attachments/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "attachments",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Data Exports",
+      "item": [
+        {
+          "name": "Queue Board Export CSV",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/tasks/export",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "tasks",
+                "export"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Download Export File",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/exports/download/tasks_report_test.csv",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "exports",
+                "download",
+                "tasks_report_test.csv"
+              ],
+              "query": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Real-time Presence & Typing",
+      "item": [
+        {
+          "name": "Signal Heartbeat Presence",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/realtime/presence",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "realtime",
+                "presence"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Signal Comment Typing",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"task_id\": 3,\n    \"is_typing\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/realtime/typing",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "realtime",
+                "typing"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Users",
+      "item": [
+        {
+          "name": "Get Users Directory",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/users",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "users"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8000/api",
+      "type": "string"
+    },
+    {
+      "key": "token",
+      "value": "",
+      "type": "string"
+    }
+  ]
+}
