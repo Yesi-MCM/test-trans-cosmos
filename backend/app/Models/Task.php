@@ -21,6 +21,8 @@ class Task extends Model
 
     protected $casts = [
         'due_date' => 'datetime',
+        'assigned_user_id' => 'integer',
+        'created_by' => 'integer',
     ];
 
     public function assignedUser()

@@ -12,6 +12,11 @@ class TaskComment extends Model
         'comment',
     ];
 
+    protected $casts = [
+        'task_id' => 'integer',
+        'user_id' => 'integer',
+    ];
+
     public function task()
     {
         return $this->belongsTo(Task::class);

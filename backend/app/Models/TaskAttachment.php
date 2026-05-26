@@ -18,6 +18,12 @@ class TaskAttachment extends Model
         'status',
     ];
 
+    protected $casts = [
+        'task_id' => 'integer',
+        'file_size' => 'integer',
+        'version' => 'integer',
+    ];
+
     public function task()
     {
         return $this->belongsTo(Task::class);
