@@ -40,4 +40,9 @@ Route::middleware('auth:api')->group(function () {
     Route::get('realtime/stream', [\App\Http\Controllers\RealtimeController::class, 'stream']);
     Route::post('realtime/presence', [\App\Http\Controllers\RealtimeController::class, 'presence']);
     Route::post('realtime/typing', [\App\Http\Controllers\RealtimeController::class, 'typing']);
+
+    // Users Directory
+    Route::get('users', function () {
+        return \App\Models\User::all(['id', 'name', 'email', 'role']);
+    });
 });

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { AuthProvider } from "@/context/AuthContext";
+import { RealtimeProvider } from "@/context/RealtimeContext";
 
 export const metadata: Metadata = {
   title: "TaskSphere | Premium Task Management",
@@ -16,9 +17,11 @@ export default function RootLayout({
     <html lang="en" data-theme="dark">
       <body>
         <AuthProvider>
-          <div className="mesh-glow mesh-glow-1" />
-          <div className="mesh-glow mesh-glow-2" />
-          {children}
+          <RealtimeProvider>
+            <div className="mesh-glow mesh-glow-1" />
+            <div className="mesh-glow mesh-glow-2" />
+            {children}
+          </RealtimeProvider>
         </AuthProvider>
       </body>
     </html>

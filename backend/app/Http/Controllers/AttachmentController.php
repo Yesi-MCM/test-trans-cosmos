@@ -200,6 +200,14 @@ class AttachmentController extends Controller
             return response()->json(['message' => 'Attachment not found'], 404);
         }
 
+        // Handle thumbnail serving
+        if (request()->query('thumbnail') && str_starts_with($attachment->mime_type, 'image/')) {
+            $thumbnailPath = str_replace('attachments/', 'thumbnails/', $attachment->file_path);
+            if (Storage::disk('local')->exists($thumbnailPath)) {
+                return Storage::disk('local')->download($thumbnailPath, 'thumb_' . $attachment->file_name);
+            }
+        }
+
         // Check if file exists in disk
         if (!Storage::disk('local')->exists($attachment->file_path)) {
             return response()->json(['message' => 'File not found on server'], 404);
