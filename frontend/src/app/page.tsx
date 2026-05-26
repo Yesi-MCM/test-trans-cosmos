@@ -172,7 +172,11 @@ export default function Dashboard() {
 
     const unsubExport = registerListener('export_completed', (payload) => {
       if (payload.user_id === user?.id) {
-        const fullDownloadUrl = `${API_URL}${payload.download_url}?token=${encodeURIComponent(token || '')}`;
+        let downloadPath = payload.download_url;
+        if (downloadPath.startsWith('/api/')) {
+          downloadPath = downloadPath.substring(4); // Remove redundant '/api' leaving '/exports/download/...'
+        }
+        const fullDownloadUrl = `${API_URL}${downloadPath}?token=${encodeURIComponent(token || '')}`;
         addToast(`Your CSV export report is ready!`, 'success', fullDownloadUrl);
       }
     });
