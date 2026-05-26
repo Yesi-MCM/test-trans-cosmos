@@ -35,4 +35,9 @@ Route::middleware('auth:api')->group(function () {
     // Exports
     Route::post('tasks/export', [\App\Http\Controllers\TaskController::class, 'export']);
     Route::get('exports/download/{filename}', [\App\Http\Controllers\TaskController::class, 'downloadExport']);
+
+    // Real-time (SSE)
+    Route::get('realtime/stream', [\App\Http\Controllers\RealtimeController::class, 'stream']);
+    Route::post('realtime/presence', [\App\Http\Controllers\RealtimeController::class, 'presence']);
+    Route::post('realtime/typing', [\App\Http\Controllers\RealtimeController::class, 'typing']);
 });
