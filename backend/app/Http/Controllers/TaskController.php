@@ -290,4 +290,32 @@ class TaskController extends Controller
             \App\Jobs\SendAssignmentEmailJob::dispatch($task);
         }
     }
+
+    /**
+     * Dispatch background task report export CSV job.
+     */
+    public function export(Request $request)
+    {
+        if (class_exists(\App\Jobs\ExportTasksReportJob::class)) {
+            \App\Jobs\ExportTasksReportJob::dispatch(Auth::id());
+        }
+        
+        return response()->json([
+            'message' => 'Task export CSV job has been dispatched'
+        ]);
+    }
+
+    /**
+     * Securely download the exported task report CSV.
+     */
+    public function downloadExport($filename)
+    {
+        $filePath = "exports/{$filename}";
+
+        if (!\Illuminate\Support\Facades\Storage::disk('local')->exists($filePath)) {
+            return response()->json(['message' => 'Export file not found'], 404);
+        }
+
+        return \Illuminate\Support\Facades\Storage::disk('local')->download($filePath, $filename);
+    }
 }

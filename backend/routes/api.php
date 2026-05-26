@@ -31,4 +31,8 @@ Route::middleware('auth:api')->group(function () {
     Route::post('attachments/chunk', [\App\Http\Controllers\AttachmentController::class, 'uploadChunk']);
     Route::get('attachments/{id}/download', [\App\Http\Controllers\AttachmentController::class, 'download']);
     Route::delete('attachments/{id}', [\App\Http\Controllers\AttachmentController::class, 'destroy']);
+
+    // Exports
+    Route::post('tasks/export', [\App\Http\Controllers\TaskController::class, 'export']);
+    Route::get('exports/download/{filename}', [\App\Http\Controllers\TaskController::class, 'downloadExport']);
 });
