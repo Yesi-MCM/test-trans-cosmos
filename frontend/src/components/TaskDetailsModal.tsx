@@ -60,7 +60,7 @@ interface TaskDetailsModalProps {
   onDelete: (deletedTaskId: number) => void;
 }
 
-const CHUNK_SIZE = 5 * 1024 * 1024; // 5MB chunks
+const CHUNK_SIZE = 2 * 1024 * 1024; // 2MB chunks (must be < 4.5MB for Vercel Free Plan)
 
 export default function TaskDetailsModal({ taskId, onClose, onUpdate, onDelete }: TaskDetailsModalProps) {
   const { user: currentUser } = useAuth();

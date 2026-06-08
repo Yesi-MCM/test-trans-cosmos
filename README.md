@@ -58,7 +58,8 @@ project-root/
 ## Quick Start
 
 For detailed step-by-step setup, configuration, database seeding, queue workers, and execution instructions, please refer to the following documents:
-- 📖 [Setup & Running Guide](file:///c:/laragon/www/test-trans-cosmos/documentation/setup-guide.md)
+- 📖 [Local Setup & Running Guide](file:///c:/laragon/www/test-trans-cosmos/documentation/setup-guide.md)
+- 📖 [Production Deployment & Vercel Guide](file:///c:/laragon/www/test-trans-cosmos/documentation/deployment-guide.md)
 - 📖 [Architecture Decisions Document](file:///c:/laragon/www/test-trans-cosmos/documentation/architecture.md)
 - 📖 [OpenAPI 3.0 API Specification](file:///c:/laragon/www/test-trans-cosmos/documentation/api-docs/api-docs.json)
 - 📖 [Postman API Collection](file:///c:/laragon/www/test-trans-cosmos/documentation/api-docs/postman_collection.json)

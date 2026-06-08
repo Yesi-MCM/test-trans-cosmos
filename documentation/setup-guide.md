@@ -2,6 +2,9 @@
 
 This guide provides detailed setup instructions to configure, run, and verify both the Laravel API backend and the Next.js frontend of TaskGrid locally.
 
+> [!NOTE]
+> For hosting the application in a production environment (including Vercel deployment), please refer to the [Production Deployment & Vercel Guide](file:///c:/laragon/www/test-trans-cosmos/documentation/deployment-guide.md).
+
 ---
 
 ## 1. Backend Setup (Laravel)
